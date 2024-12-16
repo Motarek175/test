@@ -1,0 +1,181 @@
+<div class="flex flex-col justify-center font-[sans-serif] p-4">
+  <div class="max-w-md w-full mx-auto p-4">
+    <div class="text-center mb-12">
+      <img
+        class="mx-auto h-16 w-auto"
+        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+        alt="Your Company"
+      />
+      <h2
+        class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white"
+      >
+        Create New Account
+      </h2>
+    </div>
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <div class="space-y-6">
+        <div>
+          <label class="text-white text-sm mb-2 block">Full Name</label>
+          <input
+            name="name"
+            type="text"
+            class="text-black bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            placeholder="Enter email"
+            formControlName="fullname"
+          />
+          <div
+            class="error text-red-500 flex flex-col rounded-md"
+            *ngIf="
+              signUpForm.get('fullname')?.errors &&
+              signUpForm.get('fullname')?.touched
+            "
+          >
+            <p
+              class="py-2"
+              *ngIf="signUpForm.get('fullname')?.getError('required')"
+            >
+              <li>Full Name is Required</li>
+            </p>
+            <p
+              class="py-2"
+              *ngIf="signUpForm.get('fullname')?.getError('minlength')"
+            >
+              <li>Min length is 8</li>
+            </p>
+          </div>
+        </div>
+        <div>
+          <label class="text-white text-sm mb-2 block">Username</label>
+          <input
+            name="name"
+            type="text"
+            class="text-black bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            placeholder="Enter email"
+            formControlName="username"
+          />
+          <div
+            class="error text-red-500 flex flex-col rounded-md"
+            *ngIf="
+              signUpForm.get('username')?.errors &&
+              signUpForm.get('username')?.touched
+            "
+          >
+            <p
+              class="py-2"
+              *ngIf="signUpForm.get('username')?.getError('required')"
+            >
+              <li>Username is Required</li>
+            </p>
+          </div>
+        </div>
+        <div>
+          <label class="text-white text-sm mb-2 block">Email</label>
+          <input
+            name="email"
+            type="text"
+            class="text-black bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            placeholder="Enter email"
+            formControlName="email"
+          />
+          <div
+            class="error text-red-500 flex flex-col rounded-md"
+            *ngIf="
+              signUpForm.get('email')?.errors &&
+              signUpForm.get('email')?.touched
+            "
+          >
+            <p
+              class="py-2"
+              *ngIf="signUpForm.get('email')?.getError('required')"
+            >
+              <li>Email is Required</li>
+            </p>
+            <p class="py-2" *ngIf="signUpForm.get('email')?.getError('email')">
+              <li>Invalid Format</li>
+            </p>
+          </div>
+        </div>
+        <div>
+          <label class="text-white text-sm mb-2 block">Password</label>
+          <input
+            name="password"
+            type="password"
+            class="text-black bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            placeholder="Enter password"
+            formControlName="password"
+            (keyup)="checkMatches()"
+          />
+          <div
+            class="error flex flex-col rounded-md"
+            *ngIf="
+              signUpForm.get('password')?.errors &&
+              signUpForm.get('password')?.touched
+            "
+          >
+            <p
+              class="py-2 text-red-500"
+              *ngIf="signUpForm.get('password')?.getError('required')"
+            >
+              <li>Password is Required</li>
+            </p>
+            <p
+              class="py-2 font-bold"
+              *ngIf="signUpForm.get('password')?.getError('pattern')"
+            >
+              Password Should Contains at least:
+              <li>One Digit</li>
+              <li>One Uppercase Letter</li>
+              <li>One Lowercase Letter</li>
+              <li>One Special Character</li>
+              <li>Minimum 8 Characters,</li>
+            </p>
+          </div>
+        </div>
+        <div>
+          <label class="text-white text-sm mb-2 block">Confirm Password</label>
+          <input
+            name="cpassword"
+            type="password"
+            class="text-black bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+            placeholder="Enter confirm password"
+            formControlName="confPass"
+            (keyup)="checkMatches()"
+          />
+          <div
+            class="error text-red-500 flex flex-col rounded-md"
+            *ngIf="
+              signUpForm.get('confPass')?.touched &&
+              signUpForm.get('confPass')?.errors
+            "
+          >
+            <p
+              class="py-2"
+              *ngIf="!matching && signUpForm.get('confPass')?.touched"
+            >
+              <li>Passwords Should be matches</li>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="!mt-12">
+        <button
+          type="button"
+          class="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+          [disabled]="signUpForm.invalid"
+          (click)="signUp()"
+        >
+          Create an account
+        </button>
+      </div>
+      <p class="mt-10 text-center text-sm/6 text-gray-500">
+        Already have an account?
+        <a
+          routerLink="/signin"
+          class="font-semibold text-indigo-600 hover:text-indigo-500"
+          >SignIn</a
+        >
+      </p>
+    </form>
+  </div>
+</div>
